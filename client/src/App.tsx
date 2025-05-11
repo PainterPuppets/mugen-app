@@ -10,6 +10,9 @@ import Examples from "@/pages/examples";
 import ApiTesting from "@/pages/api-testing";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import CharacterListPage from "@/pages/character/CharacterListPage";
+import CharacterDetailPage from "@/pages/character/CharacterDetailPage";
+import { AppProvider } from "@/contexts/AppProvider";
 
 function Router() {
   return (
@@ -18,6 +21,8 @@ function Router() {
       <Route path="/documentation" component={Documentation} />
       <Route path="/examples" component={Examples} />
       <Route path="/api-testing" component={ApiTesting} />
+      <Route path="/character" component={CharacterListPage} />
+      <Route path="/character/:uuid" component={CharacterDetailPage} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -26,16 +31,18 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="min-h-screen flex flex-col">
-          <Navbar />
-          <div className="flex-grow">
-            <Router />
+      <AppProvider>
+        <TooltipProvider>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <div className="flex-grow">
+              <Router />
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-        <Toaster />
-      </TooltipProvider>
+          <Toaster />
+        </TooltipProvider>
+      </AppProvider>
     </QueryClientProvider>
   );
 }
