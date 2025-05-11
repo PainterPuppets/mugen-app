@@ -12,6 +12,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CharacterListPage from "@/pages/character/CharacterListPage";
 import CharacterDetailPage from "@/pages/character/CharacterDetailPage";
+import CharacterCreatePage from "@/pages/character/CharacterCreatePage";
 import { AppProvider } from "@/contexts/AppProvider";
 
 function Router() {
@@ -21,7 +22,8 @@ function Router() {
       <Route path="/documentation" component={Documentation} />
       <Route path="/examples" component={Examples} />
       <Route path="/api-testing" component={ApiTesting} />
-      <Route path="/character" component={CharacterListPage} />
+      <Route path="/characters" component={CharacterListPage} />
+      <Route path="/characters/create" component={CharacterCreatePage} />
       <Route path="/character/:uuid" component={CharacterDetailPage} />
       <Route component={NotFound} />
     </Switch>

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import { BaseAttributeType, Gender, Attributes } from "@/types/character";
-import { SkillFlag, SkillMajor } from "@/types/skill";
+import { SkillFlag, SkillMajor, Skills, initSkills } from "@/types/skill";
 
 // Default attributes
 const defaultAttributes: Attributes = {
@@ -20,11 +20,7 @@ type CharacterCreateData = {
   appearance: string;
   overview: string;
   attributes: Attributes;
-  skills: Array<{
-    flag: SkillFlag;
-    grade: number;
-    majors: Array<SkillMajor>;
-  }>;
+  skills: Skills;
 };
 
 type CharacterCreateContextType = {
@@ -44,16 +40,8 @@ type CharacterCreateContextType = {
   setOverview: (overview: string) => void;
   attributes: Attributes;
   setAttributes: (attributes: Attributes) => void;
-  skills: Array<{
-    flag: SkillFlag;
-    grade: number;
-    majors: Array<SkillMajor>;
-  }>;
-  setSkills: (skills: Array<{
-    flag: SkillFlag;
-    grade: number;
-    majors: Array<SkillMajor>;
-  }>) => void;
+  skills: Skills;
+  setSkills: (skills: Skills) => void;
   getCreateData: () => CharacterCreateData;
   reset: () => void;
 };
@@ -63,17 +51,13 @@ const CharacterCreateContext = createContext<CharacterCreateContextType | undefi
 export function CharacterCreateProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
-  const [gender, setGender] = useState<Gender>("M");
+  const [gender, setGender] = useState<Gender>(Gender.M);
   const [figureUrl, setFigureUrl] = useState("");
   const [height, setHeight] = useState(170);
   const [appearance, setAppearance] = useState("");
   const [overview, setOverview] = useState("");
   const [attributes, setAttributes] = useState<Attributes>(defaultAttributes);
-  const [skills, setSkills] = useState<Array<{
-    flag: SkillFlag;
-    grade: number;
-    majors: Array<SkillMajor>;
-  }>>([]);
+  const [skills, setSkills] = useState<Skills>(initSkills());
 
   const getCreateData = useCallback((): CharacterCreateData => {
     return {
@@ -91,13 +75,13 @@ export function CharacterCreateProvider({ children }: { children: ReactNode }) {
   const reset = useCallback(() => {
     setStep(0);
     setName("");
-    setGender("M");
+    setGender(Gender.M);
     setFigureUrl("");
     setHeight(170);
     setAppearance("");
     setOverview("");
     setAttributes(defaultAttributes);
-    setSkills([]);
+    setSkills(initSkills());
   }, []);
 
   const value = {
