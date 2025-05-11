@@ -1,0 +1,422 @@
+@import '~antd/dist/antd.dark.less';
+
+.character-card-page {
+  height: ~"calc(100% - 64px)";
+  overflow: hidden;
+  padding: 16px;
+  @media screen and (max-width:768px) {
+    overflow-y: scroll;
+  }
+}
+.character-card-max {
+  flex: 1;
+  height: 100%;
+}
+
+.ant-col.character-card-col {
+  @media screen and (max-width:768px) {
+    margin-bottom: 16px;
+  }
+  @media screen and (min-width:768px) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.character-scrollbar-card {
+  display: flex;
+  flex-direction: column;
+  @media screen and (min-width:768px) {
+    height: 100%;
+  }
+  .ant-card-body {
+    flex: 1;
+    padding-right: 16px;
+  }
+  .ant-card-actions {
+    padding: 0 8px;
+  }
+}
+
+.character-card-figure {
+  flex: 1;
+  margin-bottom: 16px !important;
+  .ant-card-body {
+    padding: 0px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .character-card-figure-image {
+    flex: 1;
+    .ant-upload.ant-upload-select {
+      min-height: 380px;
+      border-radius: @border-radius-base;
+      overflow: hidden;
+      .ant-upload {
+        .image-uploader-viewer {
+          background-position: top !important;
+        }
+      }
+    }
+  }
+
+  .character-card-figure-title {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+.character-card-panel {
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  .ant-card-head {
+    padding: 0 8px;
+    min-height: 0;
+    .ant-card-head-title {
+      padding: 8px 0;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+  .ant-card-body {
+    padding: 8px;
+  }
+  .ant-card-actions {
+    padding: 0 8px;
+  }
+}
+
+.character-card-attribute-item {
+  height: 30px;
+  padding: 0px 4px 4px;
+  margin-bottom: 8px !important;
+  border-bottom: 1px dashed @border-color-base;
+  display: flex;
+  align-items: center;
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0px !important;
+  }
+
+  .character-card-attribute-item-key {
+    font-weight: bold;
+  }
+
+  .character-card-attribute-item-value {
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .character-card-attribute-item-progress {
+    flex: 1;
+    max-width: 60%;
+    margin-left: auto;
+  }
+  .character-card-legend-attribute {
+    margin-left: 8px;
+    color: white;
+    font-weight: bold;
+    background: linear-gradient(135deg, rgb(215, 186, 149), rgb(154, 120, 98));
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.15);
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .character-card-attribute-item-action {
+    margin-left: 8px;
+  }
+}
+
+.equipment-slot {
+  padding: 16px;
+  background: rgba(0,0,0,.15);
+  box-shadow: 2px 2px 10px rgba(0,0,0,.1);
+  border-radius: 4px;
+  margin-bottom: 16px;
+  display: flex;
+  cursor: pointer;
+  transition: all .3s;
+  &:hover {
+    background: rgba(0,0,0,.25);
+    .equipment-slot-action {
+      opacity: 1;
+    }
+  }
+  .equipment-slot-position {
+    border-right: 1px solid @border-color-base;
+    margin-right: 8px;
+    padding-right: 8px;
+  }
+  .equipment-slot-goods {
+    flex: 1;
+    text-align: center;
+  }
+  .equipment-slot-action {
+    opacity: 0;
+    transition: all .3s;
+  }
+}
+
+.inventory-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(0,0,0,0.15);
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all .3s;
+  .inventory-item-name {
+    min-width: 150px;
+    width: 150px;
+    border-right: 1px solid @border-color-base;
+    margin-right: 8px;
+  }
+  .inventory-item-stock {
+    min-width: 90px;
+    border-right: 1px solid @border-color-base;    
+    padding-right: 8px;
+    margin-right: 8px;
+  }
+  .inventory-item-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .inventory-item-action {
+    padding-left: 8px;
+    margin-left: auto;
+  }
+
+  &.equipped {
+    &::after {
+      content: '已装备';
+      background-color: @primary-color;
+      position: absolute;
+      left: 0;
+      top: -4px;
+      font-size: 12px;
+      padding: 2px 4px;
+    }
+  }
+}
+
+.character-card-skill-item {
+  margin-bottom: 8px;
+  padding: 0px 4px 8px;
+  border-bottom: 1px dashed @border-color-base;
+  .character-card-skill-item-main {
+    display: flex;
+    align-items: center;
+    .character-card-skill-name {
+      font-weight: bold;
+    }
+    .character-card-skill-value {
+      margin-left: auto;
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+  }
+  .character-card-skill-item-majors {
+    margin-top: 4px;
+    .character-card-skill-item-major {
+      background: transparent;
+      color: @primary-color;
+      font-size: 12px;
+      padding: 4px 8px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      border: 1px dashed @primary-color;
+      border-radius: @border-radius-base;
+    }
+  }
+}
+
+.major-select-modal {
+  .ant-modal-body {
+    padding: 12px;
+  }
+}
+
+.major-item-list {
+  .major-item {
+    padding: 0px 4px 8px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px dashed @border-color-base;
+    &:last-child {
+      border-bottom: none;
+    }
+    .major-item-action {
+      margin-left: auto;
+    }
+  }
+}
+
+.attack-pattern-item {
+  background: rgba(0,0,0,0.25);
+  padding: 8px;
+  border-radius: @border-radius-base;
+  margin-bottom: 16px;
+  transition: all .3s;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.1);
+  cursor: pointer;
+  &:hover {
+    background: rgba(0,0,0,0.35);
+    box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+  }
+  .attack-pattern-item-name {
+    text-align: center;
+  }
+  .attack-pattern-item-rules {
+    .attack-pattern-item-rule {
+      display: flex;
+      padding: 0px 4px;
+      font-weight: bold;
+      align-items: center;
+      .attack-pattern-item-rule-name {
+        margin-right: auto;
+        font-size: 12px;
+      }
+    }
+  }
+  
+  .attack-pattern-item-damages {
+    .attack-pattern-item-damage {
+      display: flex;
+      padding: 0px 4px;
+      font-size: 12px;
+      font-weight: bold;
+      .attack-pattern-item-damage-name {
+        margin-right: auto;
+      }
+    }
+  }
+  
+  .attack-pattern-item-params {
+    padding: 0px 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    .attack-pattern-item-param {
+      display: flex;
+      font-size: 12px;
+      font-weight: bold;
+      .attack-pattern-item-param-name {
+        margin-right: auto;
+      }
+    }
+  }
+  .attack-pattern-item-affixes {
+    .attack-pattern-item-affix {
+      padding: 2px 4px;
+      font-size: 12px;
+      background-color: @primary-color;
+      border-radius: @border-radius-base;
+      margin-right: 4px;
+    }
+  }
+
+  .attack-pattern-item-action {
+    text-align: right;
+  }
+}
+
+.divide-bottom {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid @border-color-base;
+  &:last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.character-skill-check-item {
+  padding: 8px 4px;
+  border-bottom: 1px dashed @border-color-base;
+  display: flex;
+  align-items: center;
+  .character-skill-check-item-name {
+    font-weight: bold;
+  }
+  .character-skill-check-item-value {
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+}
+
+.character-card-property-item-source {
+  color: @success-color;
+}
+
+.character-card-property-item {
+  display: flex;
+  font-size: 12px;
+  border-bottom: 1px dashed @border-color-base;
+  padding: 8px 0px;
+  cursor: pointer;
+  &:last-child {
+    border-bottom: none;
+  }
+  .character-card-property-item-name {
+    font-weight: bold;
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 8px;
+    padding-right: 8px;
+  }
+  .character-card-property-item-description {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.character-attribute-value {
+  user-select: none;
+  cursor: pointer;
+  &.has-bonus {
+    color: @success-color;
+  }
+}
+
+.ant-modal.speciality-modal {
+  top: 50px;
+  .ant-modal-header {
+    padding: 16px 16px;
+  }
+  .ant-modal-content {
+    .ant-modal-body {
+      padding: 16px;
+    }
+  }
+}
+
+.tansfer-modal-self {
+  background: rgba(0,0,0,.25);
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  text-align: center;
+}

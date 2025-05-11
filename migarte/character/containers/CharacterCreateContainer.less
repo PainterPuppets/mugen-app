@@ -1,0 +1,78 @@
+@import "~antd/lib/style/themes/dark.less";
+
+.character-create-tab.ant-tabs-card.ant-tabs-right {
+  .ant-tabs-nav .ant-tabs-tab {
+    border: none;
+    height: 70px;
+    margin-bottom: 4px !important;
+    user-select: none;
+  }
+  .ant-tabs-content-holder {
+    border: none;
+    .ant-tabs-tabpane {
+      padding-right: 0;
+    }
+
+  }
+}
+
+.character-create-form-label {
+  font-weight: bold;
+  margin-right: 16px !important;
+}
+
+.character-create-card {
+  height: ~"calc(100vh - 128px)";
+  .ant-card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .character-create-card-main {
+      flex: 1;
+    }
+  }
+}
+
+.character-figure {
+  user-select: none;
+  max-height: 80vh;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.character-figure-uploader {
+  margin-top: 8px;
+  .ant-upload.ant-upload-select.ant-upload-select-picture-card {
+    width: 100%;
+    margin: 0;
+  }
+}
+.character-create-card-main {
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.check-title {
+  border-bottom: 1px solid @border-color-split;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+.check-paragraph {
+  margin-bottom: 8px !important;
+}
+
+.character-creater-container {
+  height: ~"calc(100% - 64px)";
+  padding: 32px;
+}
+
+.character-create-figure-card {
+  height: 100%;
+  .ant-card-body {
+    padding: 8px;
+    height: 100%;
+  }
+  .character-create-figure {
+    height: 100%;
+  }
+}

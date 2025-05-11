@@ -1,0 +1,51 @@
+.character-list-wrapper {
+  // padding: 16px 16px 64px;
+  height: ~"calc(100% - 64px)" !important;
+}
+
+.character-list-action {
+  position: absolute;
+  pointer-events: none;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a {
+    pointer-events: auto;
+  }
+}
+
+.ant-btn.character-list-create-btn {
+  border-radius: 20px;
+  padding: 8px 32px;
+  height: auto;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.25);
+}
+
+.ant-list .ant-card.character-list-card {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.ant-card.character-list-card {
+  background: rgba(0, 0, 0, 0.25);
+  .ant-card-body {
+    padding: 16px;
+  }
+  .character-list-card-figure {
+    height: 300px;
+    width: auto;
+    background-size: cover;
+    background-position: top;
+  }
+  .character-list-card-title {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .character-list-card-action {
+    margin-top: 8px;
+  }
+}

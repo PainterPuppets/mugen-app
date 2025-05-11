@@ -1,0 +1,54 @@
+@import "~antd/dist/antd.dark.less";
+
+.character-create-card-main {
+  user-select: none;
+}
+
+.attributes-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .attributes-panel-header {
+    display: flex;
+    padding-right: 16px;
+    a {
+      margin-left: auto;
+    }
+  }
+}
+
+.attribute-category {
+  border-bottom: 1px solid @border-color-split;
+  margin-bottom: 4px;
+  padding: 8px 0;
+}
+
+.attribute-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid @border-color-base;
+  padding: 8px;
+  transition: all .3s;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .attribute-name {
+    font-size: @font-size-lg;
+    font-weight: bold;
+  }
+  .attribute-main {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    .attribute-value {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 0px 8px;
+    }
+  }  
+}

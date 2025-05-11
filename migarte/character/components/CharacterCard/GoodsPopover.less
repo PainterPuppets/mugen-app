@@ -1,0 +1,77 @@
+@import "~antd/dist/antd.dark.less";
+
+.goods-popover {
+  width: 230px;
+  .goods-name {
+    font-weight: bold;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid @border-color-base;
+  }
+  .goods-info {
+    font-size: 12px;
+  }
+
+  .goods-divide {
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid @border-color-base;
+    &:last-child{ 
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+  }
+  .goods-equipment-info {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .goods-equipment-requirements {
+    font-size: 12px;
+
+    .goods-equipment-requirement {
+      color: @error-color;
+      &.active {
+        color: @success-color;
+      }
+    }
+  }
+
+  .goods-weapon-info {
+    font-size: 12px;
+  }
+
+  .goods-properties {
+    font-size: 12px;
+  }
+  
+  .goods-affixes {
+    padding: 4px 0px;
+  }
+
+  .goods-affix {
+    padding: 2px 4px;
+    font-size: 12px;
+    background-color: @primary-color;
+    border-radius: @border-radius-base;
+    margin-right: 4px;
+  }
+
+  .goods-description {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+
+.goods-property {
+  .goods-property-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .goods-property-description {
+    color: rgba(255, 255, 255, 0.45);
+  }
+}

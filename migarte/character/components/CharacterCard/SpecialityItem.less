@@ -1,0 +1,88 @@
+@import '~antd/dist/antd.dark.less';
+
+.speciality-item {
+  background: rgba(0,0,0,0.2);
+  padding: 8px;
+  border-radius: @border-radius-base;
+  margin-bottom: 16px;
+  .speciality-item-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .speciality-item-description {
+    font-size: 12px;
+    white-space: break-spaces;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .speciality-item-levels {
+
+  }
+}
+
+.speciality-item-hedaer {
+  display: flex;
+  align-items: center;
+  .speciality-item-action {
+    margin-left: auto;
+  }
+}
+
+.item-divide {
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid @border-color-base;
+  &:last-child{ 
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  &.dashed {
+    border-bottom: 1px dashed @border-color-base;
+    &:last-child{ 
+      border-bottom: none;
+    }
+  }
+}
+
+.speciality-level-item {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  &.learned {
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .speciality-level-item-name {
+    font-size: 14px;
+
+  }
+  .speciality-level-item-description {
+    white-space: break-spaces;
+  }
+}
+
+.emphasis-text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.property-item {
+  .property-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .property-description {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+}
+
+.max-spin {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.1);
+}
+
+.speciality-panel-action {
+  margin-bottom: 8px;
+}

@@ -1,0 +1,91 @@
+@import '~antd/dist/antd.dark.less';
+
+#document {
+  height: 100%;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: "open sans", "helvetica neue", Helvetica, Arial, sans-serif;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  margin-right : auto;
+  margin-left  : auto;
+  padding-left : 16px;
+  padding-right: 16px;
+  min-width    : 320px
+}
+
+.header-bar {
+  background: #505763;
+}
+
+.page-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ant-progress.ant-progress-line.custom-progress {
+  display: flex;
+  align-items: center;
+  .ant-progress-outer {
+    display: flex;
+    align-items: center;
+    margin-right: 0;
+    padding-right: 0;
+  }
+  .ant-progress-text {
+    width: auto;
+  }
+}
+
+@media(min-width:768px) {
+  .container {
+    width: 750px
+  }
+}
+
+@media(min-width:992px) {
+  .container {
+    width: 970px
+  }
+}
+
+@media(min-width:1200px) {
+  .container {
+    width: 1170px
+  }
+}
+
+@media(min-width:1440px) {
+  .container {
+    width: 1170px
+  }
+}
+
+.custom-scroll {
+  background-color: transparent;
+}
+
+.primary-text {
+  color: @primary-color;
+}
+
+.success-text {
+  color: @success-color;
+}
+
+.error-text {
+  color: @error-color;
+}

@@ -1,0 +1,29 @@
+@import '~antd/dist/antd.dark.less';
+
+.haemal-strand {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+  user-select: none;
+  cursor: pointer;
+  width: 100px;
+  .strand {
+    height: 10px;
+    max-width: 10px;
+    flex: 1;
+    &.complete {
+      background: @success-color;
+    }
+    &.bashing {
+      background: @warning-color;
+    }
+    &.lethal {
+      background: #ff7a45;
+    }
+    &.aggravated {
+      background: @error-color;
+    }
+  }
+}
+

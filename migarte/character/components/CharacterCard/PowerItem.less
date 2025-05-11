@@ -1,0 +1,63 @@
+@import '~antd/dist/antd.dark.less';
+
+.power-item {
+  background: rgba(0,0,0,0.2);
+  padding: 8px;
+  border-radius: @border-radius-base;
+  .power-item-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .power-item-description {
+    font-size: 12px;
+    white-space: break-spaces;
+    color: rgba(255, 255, 255, 0.45);
+  }
+  .power-item-levels {
+
+  }
+}
+
+.item-divide {
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid @border-color-base;
+  &:last-child{ 
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: none;
+  }
+  &.dashed {
+    border-bottom: 1px dashed @border-color-base;
+    &:last-child{ 
+      border-bottom: none;
+    }
+  }
+}
+
+.power-level-item {
+  .power-level-item-name {
+
+  }
+  .power-level-item-description {
+    font-size: 12px;
+    white-space: break-spaces;
+    color: rgba(255, 255, 255, 0.45);
+  }
+}
+
+.emphasis-text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.property-item {
+  .property-name {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .property-description {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+}
