@@ -13,6 +13,8 @@ const Navbar = () => {
 
   const navItems = [
     { path: "/", label: "Home" },
+    { path: "/characters", label: "角色列表" },
+    { path: "/characters/create", label: "创建角色" },
     { path: "/documentation", label: "Documentation" },
     { path: "/examples", label: "Examples" },
     { path: "/api-testing", label: "API Testing" }
@@ -24,8 +26,8 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
-              <i className="ri-nextjs-fill text-3xl text-primary">N</i>
-              <span className="ml-2 text-xl font-semibold">Next.js Template</span>
+              <span className="text-3xl text-primary font-bold">M</span>
+              <span className="ml-2 text-xl font-semibold">无限恐怖</span>
             </div>
             <div className="hidden sm:ml-6 sm:flex space-x-8">
               {navItems.map((item) => (
