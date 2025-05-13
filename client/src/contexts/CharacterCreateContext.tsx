@@ -1,15 +1,17 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
-import { BaseAttributeType, Gender, Attributes } from "@/types/character";
-import { SkillFlag, SkillMajor, Skills, initSkills } from "@/types/skill";
-
-// Default attributes
-const defaultAttributes: Attributes = {
-  strength: 1,
-  dexterity: 1,
-  constitution: 1,
-  intelligence: 1,
-  perception: 1
-};
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
+import { Gender } from "@/types/character";
+import {
+  Attributes,
+  Skills,
+  defaultAttributes,
+  defaultSkills,
+} from "@/components/character/type";
 
 // Character creation data type
 type CharacterCreateData = {
@@ -46,18 +48,20 @@ type CharacterCreateContextType = {
   reset: () => void;
 };
 
-const CharacterCreateContext = createContext<CharacterCreateContextType | undefined>(undefined);
+const CharacterCreateContext = createContext<
+  CharacterCreateContextType | undefined
+>(undefined);
 
 export function CharacterCreateProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState(0);
   const [name, setName] = useState("");
-  const [gender, setGender] = useState<Gender>(Gender.M);
+  const [gender, setGender] = useState<Gender>(Gender.MALE);
   const [figureUrl, setFigureUrl] = useState("");
   const [height, setHeight] = useState(170);
   const [appearance, setAppearance] = useState("");
   const [overview, setOverview] = useState("");
   const [attributes, setAttributes] = useState<Attributes>(defaultAttributes);
-  const [skills, setSkills] = useState<Skills>(initSkills());
+  const [skills, setSkills] = useState<Skills>(defaultSkills);
 
   const getCreateData = useCallback((): CharacterCreateData => {
     return {
@@ -68,20 +72,29 @@ export function CharacterCreateProvider({ children }: { children: ReactNode }) {
       appearance,
       overview,
       attributes,
-      skills
+      skills,
     };
-  }, [name, gender, figureUrl, height, appearance, overview, attributes, skills]);
+  }, [
+    name,
+    gender,
+    figureUrl,
+    height,
+    appearance,
+    overview,
+    attributes,
+    skills,
+  ]);
 
   const reset = useCallback(() => {
     setStep(0);
     setName("");
-    setGender(Gender.M);
+    setGender(Gender.MALE);
     setFigureUrl("");
     setHeight(170);
     setAppearance("");
     setOverview("");
     setAttributes(defaultAttributes);
-    setSkills(initSkills());
+    setSkills(defaultSkills);
   }, []);
 
   const value = {
@@ -104,7 +117,7 @@ export function CharacterCreateProvider({ children }: { children: ReactNode }) {
     skills,
     setSkills,
     getCreateData,
-    reset
+    reset,
   };
 
   return (
@@ -117,7 +130,9 @@ export function CharacterCreateProvider({ children }: { children: ReactNode }) {
 export function useCharacterCreate() {
   const context = useContext(CharacterCreateContext);
   if (context === undefined) {
-    throw new Error("useCharacterCreate must be used within a CharacterCreateProvider");
+    throw new Error(
+      "useCharacterCreate must be used within a CharacterCreateProvider"
+    );
   }
   return context;
 }

@@ -36,10 +36,10 @@ import {
   MajorToSkillDict,
   SkillToMajorDict,
   SkillMajorMap,
-  Specification,
-  Skills,
-  initSkills
 } from "@/types/skill";
+import { Specification } from "@/types/tooltip";
+import { Skills } from '../type';
+
 
 // Helper functions
 const getResidualPoint = (skills: Skills) => {
@@ -438,7 +438,7 @@ const CharacterCreateSkillItem = ({ skills, flag, dispatch }: SkillItemProps) =>
 
 export default function CharacterCreateSkillPanel() {
   const { skills: contextSkills, setSkills } = useCharacterCreate();
-  const [localSkills, dispatch] = useReducer(reducer, contextSkills.length ? contextSkills : initSkills());
+  const [localSkills, dispatch] = useReducer(reducer, contextSkills);
   const [helpDialogOpen, setHelpDialogOpen] = useState(false);
 
   useEffect(() => {

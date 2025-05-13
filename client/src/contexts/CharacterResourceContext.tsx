@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import { apiRequest } from "@/lib/queryClient";
-import { IResourceRecord } from "@/types/resource";
+import { IResourceRecord } from "@/types/mugen";
 
 type CharacterResourceContextType = {
   initialized: boolean;

@@ -35,41 +35,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Edit, Trash } from "lucide-react";
+import { DamageTypeMap, DamageDegreeMap } from '@/types/character';
+import { IMugenCharacter, IMugenAttack } from '@/types/mugen';
+import { EquipmentAffixMap } from '@/types/inventory';
 
-// Placeholder interfaces (replace with actual types)
-interface IMugenAttack {
-  id: number;
-  name: string;
-  description: string;
-  affixes: string[];
-  damageDegree: string;
-  damageType: string;
-  range: number;
-  armorPenetration: number;
-  highSpeed: number;
-  magicPenetration: number;
-  attackCheckRule: {
-    rule: any;
-    value: number;
-    context: any;
-  };
-  limitRule: {
-    rule: any;
-    value: number;
-    context: any;
-  };
-  attackAdditionSuccessRule: {
-    rule: any;
-    value: number;
-    context: any;
-  };
-}
-
-interface IMugenCharacter {
-  uuid: string;
-  attributes: Record<string, number>;
-  skills: any[];
-}
 
 interface AttackPatternItemProps {
   attackPattern: IMugenAttack;
@@ -78,29 +47,6 @@ interface AttackPatternItemProps {
   onUpdate?: (attackPattern: IMugenAttack) => void;
   onDelete?: (id: number) => void;
 }
-
-// Mock maps for demonstration
-const DamageTypeMap: Record<string, string> = {
-  physical: "物理",
-  magical: "魔法",
-  fire: "火焰",
-  ice: "冰霜",
-  // Add other damage types
-};
-
-const DamageDegreeMap: Record<string, string> = {
-  light: "轻伤",
-  medium: "中伤",
-  heavy: "重伤",
-  // Add other damage degrees
-};
-
-const EquipmentAffixMap: Record<string, string> = {
-  sharp: "锋利",
-  poisoned: "毒性",
-  burning: "燃烧",
-  // Add other affixes
-};
 
 export default function AttackPatternItem({
   attackPattern,

@@ -4,7 +4,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { PlusIcon } from "lucide-react";
 import { useCharacter } from "@/contexts/CharacterContext";
-import { IMugenCharacter, BaseAttributeType } from "@/types/character";
+import { BaseAttributeType, LegendAttributeKey, BaseAttributeKey } from "@/types/character";
+import { IMugenCharacter } from "@/types/mugen";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface AttributeMapType {
@@ -21,8 +22,8 @@ const AttributeMap: AttributeMapType = {
 };
 
 // Replace with actual implementation
-const getLegendKey = (key: string) => `legend_${key}`;
-const getBaseKey = (key: string) => key;
+const getLegendKey = (key: BaseAttributeType) => `legend${key.slice(0, 1).toUpperCase()}${key.slice(1)}` as LegendAttributeKey;
+const getBaseKey = (key: BaseAttributeType) => `base${key.slice(0, 1).toUpperCase()}${key.slice(1)}` as BaseAttributeKey;
 
 interface BaseCharacterAttributeItemProps {
   character: IMugenCharacter;

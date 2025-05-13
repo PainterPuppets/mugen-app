@@ -24,58 +24,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { BaseAttributeType, Attributes } from "@/types/character";
-
-// Mock enum and maps - replace with actual data
-enum AttributeCategory {
-  Physiology = "physiology",
-  Mental = "mental",
-  Interaction = "interaction"
-}
-
-const AttributeCategoryMap: Record<AttributeCategory, string> = {
-  [AttributeCategory.Physiology]: "生理",
-  [AttributeCategory.Mental]: "心智",
-  [AttributeCategory.Interaction]: "互动"
-};
-
-const AttributeToCategoryDict: Record<BaseAttributeType, AttributeCategory> = {
-  strength: AttributeCategory.Physiology,
-  dexterity: AttributeCategory.Physiology,
-  constitution: AttributeCategory.Physiology,
-  intelligence: AttributeCategory.Mental,
-  perception: AttributeCategory.Mental
-};
-
-const CategoryToAttributeDict: Record<AttributeCategory, BaseAttributeType[]> = {
-  [AttributeCategory.Physiology]: [
-    BaseAttributeType.Strength,
-    BaseAttributeType.Dexterity,
-    BaseAttributeType.Constitution
-  ],
-  [AttributeCategory.Mental]: [
-    BaseAttributeType.Intelligence,
-    BaseAttributeType.Perception
-  ],
-  [AttributeCategory.Interaction]: []
-};
-
-const AttributeMap: Record<string, string> = {
-  [BaseAttributeType.Strength]: "力量",
-  [BaseAttributeType.Dexterity]: "敏捷",
-  [BaseAttributeType.Constitution]: "体质",
-  [BaseAttributeType.Intelligence]: "智力",
-  [BaseAttributeType.Perception]: "感知"
-};
-
-// Specification for tooltips
-const Specification: Record<string, string> = {
-  [BaseAttributeType.Strength]: "力量表示角色的肌肉力量、体格和身体威严",
-  [BaseAttributeType.Dexterity]: "敏捷表示角色的反应速度、身体协调性和平衡能力",
-  [BaseAttributeType.Constitution]: "体质表示角色的耐力、健康和抵抗疾病能力",
-  [BaseAttributeType.Intelligence]: "智力表示角色的思考能力、记忆力和逻辑分析能力",
-  [BaseAttributeType.Perception]: "感知表示角色的警觉性、注意力和对环境变化的敏感度"
-};
+import { BaseAttributeType, AttributeCategory, AttributeToCategoryDict, CategoryToAttributeDict, AttributeMap, AttributeCategoryMap } from "@/types/character";
+import { Specification } from "@/types/tooltip";
+import { Attributes } from '../type';
 
 // Helper functions
 const getResidualPoint = (attributes: Attributes) => {

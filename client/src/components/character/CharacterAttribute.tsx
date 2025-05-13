@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCharacter } from "@/contexts/CharacterContext";
-import { BaseAttributeType } from "@/types/character";
+import { BaseAttribute, DerivedAttribute, AttributeMap, DefenseAttribute } from "@/types/character";
+import { SkillCategoryMap, CategoryToSkillDict, SkillCategory } from "@/types/skill";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,59 +14,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import CharacterScrollPanel from "./CharacterScrollPanel";
 import CharacterAttributeValue from "./CharacterAttributeValue";
 import BaseCharacterAttributeItem from "./BaseCharacterAttributeItem";
-
-// Define attribute arrays (replace with your actual attribute lists)
-const BaseAttribute: BaseAttributeType[] = [
-  BaseAttributeType.Strength,
-  BaseAttributeType.Dexterity,
-  BaseAttributeType.Constitution,
-  BaseAttributeType.Intelligence,
-  BaseAttributeType.Perception,
-];
-
-const DerivedAttribute: string[] = [
-  "size",
-  "willpower",
-  "initiative",
-];
-
-const DefenseAttribute: string[] = [
-  "physical_defense",
-  "magical_defense",
-];
-
-const AttributeMap: Record<string, string> = {
-  [BaseAttributeType.Strength]: "力量",
-  [BaseAttributeType.Dexterity]: "敏捷",
-  [BaseAttributeType.Constitution]: "体质",
-  [BaseAttributeType.Intelligence]: "智力",
-  [BaseAttributeType.Perception]: "感知",
-  "size": "体型",
-  "willpower": "意志",
-  "initiative": "先攻",
-  "physical_defense": "物理防御",
-  "magical_defense": "魔法防御",
-};
-
-// Placeholder for SkillCategory and related data
-enum SkillCategory {
-  Physiology = "physiology",
-  Mental = "mental",
-  Interaction = "interaction",
-}
-
-const SkillCategoryMap: Record<SkillCategory, string> = {
-  [SkillCategory.Physiology]: "生理",
-  [SkillCategory.Mental]: "心智",
-  [SkillCategory.Interaction]: "交际",
-};
-
-// Placeholder for CategoryToSkillDict
-const CategoryToSkillDict: Record<SkillCategory, string[]> = {
-  [SkillCategory.Physiology]: ["attack", "defense"],
-  [SkillCategory.Mental]: ["knowledge", "survival"],
-  [SkillCategory.Interaction]: ["social"],
-};
 
 export default function CharacterAttribute() {
   const { characterDetail, loading } = useCharacter();

@@ -19,20 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import CharacterScrollPanel from "./CharacterScrollPanel";
-
-// Mock position map
-const EquipmentPositionMap: Record<string, string> = {
-  head: "头部",
-  chest: "胸部",
-  hands: "手部",
-  legs: "腿部",
-  feet: "脚部",
-  accessory1: "饰品1",
-  accessory2: "饰品2",
-  weapon1: "武器1",
-  weapon2: "武器2",
-  // Add other equipment positions
-};
+import { EquipmentPositionMap } from "@/types/inventory";
 
 // This is a simplified version of the GoodsPopover component
 function GoodsPopover({ goods }: { goods: any }) {

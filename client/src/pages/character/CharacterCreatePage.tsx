@@ -25,7 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Gender, GenderMap } from "@/types/character";
+import { Gender, GENDER_MAP } from "@/types/character";
 import CharacterCreateAttributePanel from "@/components/character/create/CharacterCreateAttributePanel";
 import CharacterCreateSkillPanel from "@/components/character/create/CharacterCreateSkillPanel";
 import { checkAttributes } from "@/components/character/create/CharacterCreateAttributePanel";
@@ -172,8 +172,8 @@ function CharacterCreatePageContent() {
                       <SelectValue placeholder="选择性别" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value={Gender.M}>{GenderMap[Gender.M]}</SelectItem>
-                      <SelectItem value={Gender.F}>{GenderMap[Gender.F]}</SelectItem>
+                      <SelectItem value={Gender.MALE}>{GENDER_MAP[Gender.MALE]}</SelectItem>
+                      <SelectItem value={Gender.FEMALE}>{GENDER_MAP[Gender.FEMALE]}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -244,7 +244,7 @@ function CharacterCreatePageContent() {
                       <span className="text-muted-foreground">名称:</span> {name}
                     </div>
                     <div>
-                      <span className="text-muted-foreground">性别:</span> {GenderMap[gender]}
+                      <span className="text-muted-foreground">性别:</span> {GENDER_MAP[gender]}
                     </div>
                     <div>
                       <span className="text-muted-foreground">身高:</span> {height} cm

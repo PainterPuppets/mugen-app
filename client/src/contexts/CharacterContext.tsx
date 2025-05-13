@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import { apiRequest } from "@/lib/queryClient";
-import { IMugenCharacter, BaseAttributeType, Gender, Attributes } from "@/types/character";
+import { BaseAttributeType, Gender, Attribute } from "@/types/character";
+import { IMugenCharacter } from "@/types/mugen";
+
 import { SkillFlag, SkillMajor } from "@/types/skill";
 
 // Types
@@ -19,7 +21,7 @@ type CreateCharacterData = {
   height: number;
   appearance: string;
   overview: string;
-  attributes: Attributes;
+  attributes: Attribute[];
   skills: Array<{
     flag: SkillFlag;
     grade: number;

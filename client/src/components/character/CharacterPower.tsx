@@ -6,31 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { AlertCircle } from "lucide-react";
 import CharacterScrollPanel from "./CharacterScrollPanel";
-
-// Mock maps for demonstration
-const PowerTypeMap: Record<string, string> = {
-  innate: "天赋",
-  acquired: "习得",
-  magical: "魔法",
-  divine: "神圣",
-  // Add other power types
-};
-
-const LevelMap: Record<string, string> = {
-  low: "低",
-  medium: "中",
-  high: "高",
-  // Add other level types
-};
-
-const AttributeMap: Record<string, string> = {
-  strength: "力量",
-  dexterity: "敏捷",
-  constitution: "体质",
-  intelligence: "智力",
-  perception: "感知",
-  // Add other attributes
-};
+import { AttributeMap } from "@/types/character";
+import { PowerTypeMap, LevelMap } from "@/types/power";
 
 export default function CharacterPower() {
   const { characterDetail, loading } = useCharacter();

@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
-import { IMugenCharacter } from "@/types/character";
+import { IMugenCharacter } from "@/types/mugen";
+import { Attribute } from "@/types/character";
+
 
 interface CharacterAttributeValueProps {
   character: IMugenCharacter;
-  attributeKey: string;
+  attributeKey: Attribute;
   className?: string;
 }
 

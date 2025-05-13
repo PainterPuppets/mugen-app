@@ -1,7 +1,0 @@
-export interface IUser {
-  id: number,
-  email: string,
-  username: string,
-  avatarUrl?: string,
-  isSuperuser?: boolean,
-}
