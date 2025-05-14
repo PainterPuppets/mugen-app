@@ -77,7 +77,7 @@ export default function CharacterDetailPage() {
             </div>
             <div className="p-4 bg-primary/5 rounded-lg">
               <div className="text-sm font-medium text-gray-500">支线点</div>
-              <div className="text-2xl font-bold">{characterDetail.branch_point}</div>
+              <div className="text-2xl font-bold">{characterDetail.branchPoint}</div>
             </div>
           </div>
         </CardContent>
@@ -112,7 +112,7 @@ export default function CharacterDetailPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="col-span-1">
                   <img 
-                    src={characterDetail.figure_url} 
+                    src={characterDetail.figureUrl} 
                     alt={characterDetail.name}
                     className="w-full h-auto rounded-lg"
                   />
@@ -122,7 +122,7 @@ export default function CharacterDetailPage() {
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
                       <span className="text-gray-500">性别：</span>
-                      <span>{characterDetail.gender === "M" ? "男" : "女"}</span>
+                      <span>{characterDetail.gender === "male" ? "男" : "女"}</span>
                     </div>
                     <div>
                       <span className="text-gray-500">身高：</span>

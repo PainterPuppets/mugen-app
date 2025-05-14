@@ -15,9 +15,6 @@ const Navbar = () => {
     { path: "/", label: "Home" },
     { path: "/characters", label: "角色列表" },
     { path: "/characters/create", label: "创建角色" },
-    { path: "/documentation", label: "Documentation" },
-    { path: "/examples", label: "Examples" },
-    { path: "/api-testing", label: "API Testing" }
   ];
 
   return (

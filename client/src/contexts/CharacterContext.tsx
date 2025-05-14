@@ -1,13 +1,15 @@
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import { apiRequest } from "@/lib/queryClient";
-import { BaseAttributeType, Gender, Attribute } from "@/types/character";
+import { BaseAttributeType, Gender } from "@/types/character";
 import { IMugenCharacter } from "@/types/mugen";
 
 import { SkillFlag, SkillMajor } from "@/types/skill";
+import { Skills, Attributes } from "@/components/character/type";
+
 
 // Types
 type UpdateCharacterData = {
-  figure_url?: string;
+  figureUrl?: string;
   appearance?: string;
   overview?: string;
   gender?: string;
@@ -17,16 +19,12 @@ type UpdateCharacterData = {
 type CreateCharacterData = {
   name: string;
   gender: Gender;
-  figure_url: string;
+  figureUrl: string;
   height: number;
   appearance: string;
   overview: string;
-  attributes: Attribute[];
-  skills: Array<{
-    flag: SkillFlag;
-    grade: number;
-    majors: Array<SkillMajor>;
-  }>;
+  attributes: Attributes;
+  skills: Skills;
 };
 
 type CharacterContextType = {

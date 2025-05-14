@@ -155,6 +155,7 @@ export interface IMugenCharacter {
   name: string,
   figureUrl: string,
   age: number,
+  height: number,
   gender: Gender,
   race: string,
   appearance: string,

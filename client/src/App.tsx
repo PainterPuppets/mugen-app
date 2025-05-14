@@ -5,9 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
-import Documentation from "@/pages/documentation";
-import Examples from "@/pages/examples";
-import ApiTesting from "@/pages/api-testing";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CharacterListPage from "@/pages/character/CharacterListPage";
@@ -19,9 +16,6 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/documentation" component={Documentation} />
-      <Route path="/examples" component={Examples} />
-      <Route path="/api-testing" component={ApiTesting} />
       <Route path="/characters" component={CharacterListPage} />
       <Route path="/characters/create" component={CharacterCreatePage} />
       <Route path="/character/:uuid" component={CharacterDetailPage} />

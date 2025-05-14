@@ -128,8 +128,8 @@ function CharacterCreatePageContent() {
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <Card className="border shadow-md bg-card">
+    <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <Card className="border bg-card">
         <CardHeader>
           <CardTitle className="text-2xl">创建新角色</CardTitle>
           <CardDescription>
