@@ -17,7 +17,7 @@ import {
 type CharacterCreateData = {
   name: string;
   gender: Gender;
-  figure_url: string;
+  figureUrl: string;
   height: number;
   appearance: string;
   overview: string;
@@ -67,7 +67,7 @@ export function CharacterCreateProvider({ children }: { children: ReactNode }) {
     return {
       name,
       gender,
-      figure_url: figureUrl,
+      figureUrl,
       height,
       appearance,
       overview,
@@ -131,7 +131,7 @@ export function useCharacterCreate() {
   const context = useContext(CharacterCreateContext);
   if (context === undefined) {
     throw new Error(
-      "useCharacterCreate must be used within a CharacterCreateProvider"
+      "useCharacterCreate must be used within a CharacterCreateProvider",
     );
   }
   return context;

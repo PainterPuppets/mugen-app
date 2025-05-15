@@ -1,22 +1,17 @@
-import { createContext, useContext, useState, useCallback, ReactNode } from "react";
-import { apiRequest } from "@/lib/queryClient";
+
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  ReactNode,
+} from "react";
 import { BaseAttributeType, Gender } from "@/types/character";
 import { IMugenCharacter } from "@/types/mugen";
-
 import { SkillFlag, SkillMajor } from "@/types/skill";
 import { Skills, Attributes } from "@/components/character/type";
 
-
-// Types
-type UpdateCharacterData = {
-  figureUrl?: string;
-  appearance?: string;
-  overview?: string;
-  gender?: string;
-  name?: string;
-};
-
-type CreateCharacterData = {
+type CharacterData = {
   name: string;
   gender: Gender;
   figureUrl: string;
@@ -39,28 +34,44 @@ type CharacterContextType = {
   fetchCharacterList: () => Promise<void>;
   fetchCharacterDetail: (uuid: string) => Promise<void>;
   refreshCharacterData: () => Promise<void>;
-  createCharacter: (data: CreateCharacterData) => Promise<void>;
-  updateCharacter: (uuid: string, data: UpdateCharacterData) => Promise<void>;
+  createCharacter: (data: CharacterData) => Promise<void>;
+  updateCharacter: (uuid: string, data: CharacterData) => Promise<void>;
   upgradeAttribute: (
     characterUuid: string,
     attribute: BaseAttributeType,
-    method: "experience" | "credit"
+    method: "experience" | "credit",
   ) => Promise<any>;
   upgradeSkill: (characterUuid: string, flag: SkillFlag) => Promise<any>;
   getSkillMajor: (characterUuid: string, flag: SkillMajor) => Promise<any>;
   updateCharacterData: (data: IMugenCharacter) => void;
-  transfer: (characterUuid: string, targetUuid: string, credit: number) => Promise<any>;
+  transfer: (
+    characterUuid: string,
+    targetUuid: string,
+    credit: number,
+  ) => Promise<any>;
   delete: (characterUuid: string) => Promise<void>;
   reset: () => void;
 };
 
-const CharacterContext = createContext<CharacterContextType | undefined>(undefined);
+const STORAGE_KEY = 'mugen_characters';
+
+const CharacterContext = createContext<CharacterContextType | undefined>(
+  undefined,
+);
+
+function getStoredCharacters(): IMugenCharacter[] {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveCharacters(characters: IMugenCharacter[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(characters));
+}
 
 export function CharacterProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false);
   const [loading, setLoading] = useState(false);
   const [characters, setCharacters] = useState<IMugenCharacter[]>([]);
-
   const [detailInitialized, setDetailInitialized] = useState(false);
   const [detailLoading, setDetailLoading] = useState(false);
   const [characterDetail, setCharacterDetail] = useState<IMugenCharacter | undefined>(undefined);
@@ -68,23 +79,16 @@ export function CharacterProvider({ children }: { children: ReactNode }) {
   const detailReady = detailInitialized && !detailLoading;
 
   const initCharacterList = useCallback(async () => {
-    if (initialized) {
-      return;
-    }
-
+    if (initialized) return;
     return fetchCharacterList();
   }, [initialized]);
 
   const fetchCharacterList = useCallback(async () => {
-    if (loading) {
-      return;
-    }
-
+    if (loading) return;
     setLoading(true);
     try {
-      const res = await apiRequest("GET", `/api/character/`);
-      const data = await res.json();
-      setCharacters(data);
+      const storedCharacters = getStoredCharacters();
+      setCharacters(storedCharacters);
       setInitialized(true);
     } finally {
       setLoading(false);
@@ -96,93 +100,163 @@ export function CharacterProvider({ children }: { children: ReactNode }) {
       return Promise.reject("正在获取角色信息");
     }
 
-    const index = characters.findIndex(c => c.uuid === uuid);
-    if (index !== -1) {
-      setCharacterDetail(characters[index]);
+    const character = characters.find(c => c.uuid === uuid);
+    if (character) {
+      setCharacterDetail(character);
       setDetailInitialized(true);
       return;
     }
-
-    setDetailLoading(true);
-    try {
-      const res = await apiRequest("GET", `/api/character/${uuid}/`);
-      const data = await res.json();
-      setCharacterDetail(data);
-      setDetailInitialized(true);
-    } finally {
-      setDetailLoading(false);
-    }
+    return Promise.reject("未找到角色");
   }, [detailLoading, characters]);
 
   const refreshCharacterData = useCallback(async () => {
-    if (!characterDetail) {
-      return;
+    if (!characterDetail) return;
+    const character = characters.find(c => c.uuid === characterDetail.uuid);
+    if (character) {
+      setCharacterDetail(character);
     }
+  }, [characterDetail, characters]);
 
-    const res = await apiRequest("GET", `/api/character/${characterDetail.uuid}/`);
-    const data = await res.json();
-    setCharacterDetail(data);
-  }, [characterDetail]);
+  const createCharacter = useCallback(async (data: CharacterData) => {
+    const newCharacter: IMugenCharacter = {
+      uuid: crypto.randomUUID(),
+      ...data,
+      credit: 0,
+      experience: 0,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    
+    const updatedCharacters = [...characters, newCharacter];
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+    setCharacterDetail(newCharacter);
+  }, [characters]);
 
-  const createCharacter = useCallback(async (data: CreateCharacterData) => {
-    const res = await apiRequest("POST", `/api/character/`, data);
-    const responseData = await res.json();
-    setCharacterDetail(responseData);
-  }, []);
-
-  const updateCharacter = useCallback(async (uuid: string, data: UpdateCharacterData) => {
-    const res = await apiRequest("PATCH", `/api/character/${uuid}/`, data);
-    const responseData = await res.json();
-    setCharacterDetail(responseData);
-  }, []);
+  const updateCharacter = useCallback(async (uuid: string, data: CharacterData) => {
+    const updatedCharacters = characters.map(c => {
+      if (c.uuid === uuid) {
+        const updated = {
+          ...c,
+          ...data,
+          updatedAt: new Date().toISOString(),
+        };
+        setCharacterDetail(updated);
+        return updated;
+      }
+      return c;
+    });
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+  }, [characters]);
 
   const upgradeAttribute = useCallback(async (
     characterUuid: string,
     attribute: BaseAttributeType,
-    method: "experience" | "credit"
+    method: "experience" | "credit",
   ) => {
-    return apiRequest("POST", `/api/character/${characterUuid}/upgrade_attribute/`, { attribute, method });
-  }, []);
+    const updatedCharacters = characters.map(c => {
+      if (c.uuid === characterUuid) {
+        const updated = {
+          ...c,
+          attributes: {
+            ...c.attributes,
+            [attribute]: c.attributes[attribute] + 1
+          },
+          [method]: method === "experience" ? c.experience - 1 : c.credit - 1,
+          updatedAt: new Date().toISOString(),
+        };
+        setCharacterDetail(updated);
+        return updated;
+      }
+      return c;
+    });
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+  }, [characters]);
 
   const upgradeSkill = useCallback(async (characterUuid: string, flag: SkillFlag) => {
-    return apiRequest("POST", `/api/character/${characterUuid}/upgrade_skill/`, { skill_flag: flag });
-  }, []);
+    const updatedCharacters = characters.map(c => {
+      if (c.uuid === characterUuid) {
+        const updated = {
+          ...c,
+          skills: {
+            ...c.skills,
+            [flag]: (c.skills[flag] || 0) + 1
+          },
+          updatedAt: new Date().toISOString(),
+        };
+        setCharacterDetail(updated);
+        return updated;
+      }
+      return c;
+    });
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+  }, [characters]);
 
   const getSkillMajor = useCallback(async (characterUuid: string, flag: SkillMajor) => {
-    return apiRequest("POST", `/api/character/${characterUuid}/get_skill_major/`, { major_flag: flag });
-  }, []);
+    const updatedCharacters = characters.map(c => {
+      if (c.uuid === characterUuid) {
+        const updated = {
+          ...c,
+          skills: {
+            ...c.skills,
+            [flag]: true
+          },
+          updatedAt: new Date().toISOString(),
+        };
+        setCharacterDetail(updated);
+        return updated;
+      }
+      return c;
+    });
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+  }, [characters]);
 
   const updateCharacterData = useCallback((data: IMugenCharacter) => {
-    setCharacterDetail({...data});
-    
+    setCharacterDetail(data);
     setCharacters(prev => {
-      const index = prev.findIndex(c => c.uuid === data.uuid);
-      if (index !== -1) {
-        const newCharacters = [...prev];
-        newCharacters[index] = data;
-        return newCharacters;
-      }
-      return prev;
+      const updated = prev.map(c => c.uuid === data.uuid ? data : c);
+      saveCharacters(updated);
+      return updated;
     });
   }, []);
 
-  const transfer = useCallback(async (characterUuid: string, targetUuid: string, credit: number) => {
-    return apiRequest("POST", `/api/character/${characterUuid}/transfer/`, { 
-      target_uuid: targetUuid,
-      transfer_credit: credit,
+  const transfer = useCallback(async (
+    characterUuid: string,
+    targetUuid: string,
+    credit: number,
+  ) => {
+    const updatedCharacters = characters.map(c => {
+      if (c.uuid === characterUuid) {
+        return { ...c, credit: c.credit - credit };
+      }
+      if (c.uuid === targetUuid) {
+        return { ...c, credit: c.credit + credit };
+      }
+      return c;
     });
-  }, []);
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+  }, [characters]);
 
   const deleteCharacter = useCallback(async (characterUuid: string) => {
-    await apiRequest("DELETE", `/api/character/${characterUuid}/`);
-    setCharacters(prev => prev.filter(c => c.uuid !== characterUuid));
-  }, []);
+    const updatedCharacters = characters.filter(c => c.uuid !== characterUuid);
+    setCharacters(updatedCharacters);
+    saveCharacters(updatedCharacters);
+    if (characterDetail?.uuid === characterUuid) {
+      setCharacterDetail(undefined);
+    }
+  }, [characters, characterDetail]);
 
   const reset = useCallback(() => {
     setInitialized(false);
     setLoading(false);
     setCharacters([]);
     setCharacterDetail(undefined);
+    localStorage.removeItem(STORAGE_KEY);
   }, []);
 
   const value = {
@@ -205,7 +279,7 @@ export function CharacterProvider({ children }: { children: ReactNode }) {
     updateCharacterData,
     transfer,
     delete: deleteCharacter,
-    reset
+    reset,
   };
 
   return (
